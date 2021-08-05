@@ -1,0 +1,13 @@
+.deleteNote {
+  background-color: rgb(235, 72, 72);
+  text-align: center;
+  padding: 7px 10px;
+  color: white;
+  border: 0px;
+  border-radius: 5px;
+  transition: all 200ms;
+}
+.deleteNote:hover {
+  background-color: rgb(221, 0, 0);
+}
+

@@ -1,0 +1,25 @@
+.notes {
+  width: 90%;
+  display: inline-flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.notes > * {
+  margin: 20px 0px;
+}
+
+.success, .error {
+  padding: 15px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.success {
+  color: green;
+  background-color: rgb(97, 197, 97);
+}
+.error {
+  color: red;
+  background-color: rgb(245, 137, 137);
+}
