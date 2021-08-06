@@ -2,11 +2,11 @@
 
 ## Description
 
-Aplicación construida con React (vite), NestJS y utilizando MongoDB. Permite crear notas y visualizar su información más relevante en una tabla.
+App built with React (vite as build tool), NestJS and MongoDB. It allows to create notes and visualize their more relevant information on a table.
 
 ## Running the app
 
-Levantar mongoDB utilizando el comando `mongod`, luego seguir las instrucciones de los README respectivos para frontend y backend.
+Execute `mongod` to raise database, then follow the instructions on respective README's of frontend and backend application.
 
 ## Author
 

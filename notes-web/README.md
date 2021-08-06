@@ -1,7 +1,7 @@
-# Notes backend
+# Notes frontend
 
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo"/></a>
+  <a href="https://vitejs.dev/" target="blank"><img src="https://vitejs.dev/logo.svg" width="320" alt="Vite Logo"/></a>
 </p>
 
 <p align="center">
@@ -12,7 +12,7 @@
 
 ## Description
 
-Backend application which allows to make CRUD operations using a 'Nota' entity, persisting data using [MongoDB](https://www.mongodb.com/).
+Frontend application which allows to visualize and interact with notes.
 
 ## Installation
 
@@ -23,17 +23,16 @@ npm install
 ## Running the app
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
+# development/watch mode
+$ npm run dev
 
 # production mode
-$ npm run start:prod
+$ npm run build
 ```
 
 ## Test
+
+**Coming soon**
 
 ```bash
 # unit tests
