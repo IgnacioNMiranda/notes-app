@@ -6,48 +6,48 @@ import {
   Param,
   Delete,
   HttpCode,
-  Put,
   HttpStatus,
+  Put,
 } from '@nestjs/common';
-import { NoteService } from './note.service';
-import { CreateNoteDto } from './dto/create-note.dto';
-import { UpdateNoteDto } from './dto/update-note.dto';
+import { UserService } from './user.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { IsObjectIdPipe } from '../../pipes';
 
-@Controller('notes')
-export class NoteController {
-  constructor(private readonly noteService: NoteService) {}
+@Controller('users')
+export class UserController {
+  constructor(private readonly userService: UserService) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() createNoteDto: CreateNoteDto) {
-    return this.noteService.create(createNoteDto);
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.userService.create(createUserDto);
   }
 
   @Get()
   @HttpCode(HttpStatus.OK)
   findAll() {
-    return this.noteService.findAll();
+    return this.userService.findAll();
   }
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
   findOne(@Param('id', new IsObjectIdPipe()) id: string) {
-    return this.noteService.findOne(id);
+    return this.userService.findOne(id);
   }
 
   @Put(':id')
   @HttpCode(HttpStatus.OK)
   update(
     @Param('id', new IsObjectIdPipe()) id: string,
-    @Body() updateNoteDto: UpdateNoteDto,
+    @Body() updateUserDto: UpdateUserDto,
   ) {
-    return this.noteService.update(id, updateNoteDto);
+    return this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id', new IsObjectIdPipe()) id: string) {
-    return this.noteService.remove(id);
+    return this.userService.remove(id);
   }
 }

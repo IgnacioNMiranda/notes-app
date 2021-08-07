@@ -4,6 +4,7 @@ import { NoteModule } from './domain/note/note.module';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configuration } from './configuration/configuration';
+import { UserModule } from './domain/user/user.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { configuration } from './configuration/configuration';
         useFindAndModify: false,
       }),
     }),
+    UserModule,
   ],
   controllers: [AppController],
 })

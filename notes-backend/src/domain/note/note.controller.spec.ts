@@ -1,12 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getModelToken } from 'nestjs-typegoose';
 import { NoteController } from './note.controller';
 import { NoteService } from './note.service';
 import { mockClass, MockType } from '../../../test/mocks';
-import { fullDTONote, fullEntityNote, notesList } from '../note/test/fixtures';
+import {
+  fullCreateNoteDTO,
+  fullNoteEntity,
+  fullUpdateNoteDTO,
+  notesList,
+} from './fixtures';
 import * as request from 'supertest';
 import { NestApplication } from '@nestjs/core/nest-application';
 import { HttpStatus } from '@nestjs/common';
+import { IsObjectIdPipe } from '../../pipes';
 
 describe('NoteController', () => {
   let app: NestApplication;
@@ -17,11 +22,6 @@ describe('NoteController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [NoteController],
       providers: [
-        NoteService,
-        {
-          provide: getModelToken('Note'),
-          useValue: jest.fn(),
-        },
         {
           provide: NoteService,
           useValue: mockClass(NoteService),
@@ -37,6 +37,9 @@ describe('NoteController', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    jest
+      .spyOn(IsObjectIdPipe.prototype, 'transform')
+      .mockImplementation((value) => value);
   });
 
   it('should be defined', () => {
@@ -54,8 +57,8 @@ describe('NoteController', () => {
       });
 
       await request(app.getHttpServer())
-        .post('/note/')
-        .send(fullDTONote)
+        .post('/notes/')
+        .send(fullCreateNoteDTO)
         .expect(HttpStatus.CREATED);
 
       expect(service.create).toBeCalled();
@@ -69,7 +72,7 @@ describe('NoteController', () => {
       });
 
       const response = await request(app.getHttpServer())
-        .get('/note/')
+        .get('/notes/')
         .expect(HttpStatus.OK);
 
       expect(service.findAll).toBeCalled();
@@ -78,14 +81,14 @@ describe('NoteController', () => {
   });
 
   describe('findOne', () => {
-    it('should return status OK', async () => {
+    it('should return status OK when id is valid', async () => {
       service.findOne.mockImplementation((id) => {
         expect(id).toBeDefined();
-        return fullEntityNote;
+        return fullNoteEntity;
       });
 
       const response = await request(app.getHttpServer())
-        .get('/note/1')
+        .get('/notes/1')
         .expect(HttpStatus.OK);
 
       expect(service.findOne).toBeCalled();
@@ -94,9 +97,9 @@ describe('NoteController', () => {
   });
 
   describe('update', () => {
-    it('should return status ACCEPTED', async () => {
-      const oldNote = { ...fullEntityNote };
-      const newData = { ...fullEntityNote, title: 'new title' };
+    it('should return status OK when note entity and id are valid', async () => {
+      const oldNote = { ...fullNoteEntity };
+      const newData = { ...fullUpdateNoteDTO };
 
       service.update.mockImplementation((id, newData) => {
         expect(id).toBeDefined();
@@ -104,17 +107,15 @@ describe('NoteController', () => {
 
         const updatedNote = { ...oldNote };
         Object.keys(newData).forEach((key) => {
-          if (key !== '_id' && key !== '_v') {
-            updatedNote[key] = newData[key];
-          }
+          updatedNote[key] = newData[key];
         });
         return updatedNote;
       });
 
       const response = await request(app.getHttpServer())
-        .put('/note/610b061ef1f0ed2c0c590e29')
+        .put('/notes/1')
         .send(newData)
-        .expect(HttpStatus.ACCEPTED);
+        .expect(HttpStatus.OK);
 
       expect(service.update).toBeCalled();
       expect(response.body).toBeDefined();
@@ -124,12 +125,12 @@ describe('NoteController', () => {
 
   describe('remove', () => {
     it('should return status NO_CONTENT', async () => {
-      service.update.mockImplementation((id) => {
+      service.remove.mockImplementation((id) => {
         expect(id).toBeDefined();
       });
 
       const response = await request(app.getHttpServer())
-        .delete('/note/610b061ef1f0ed2c0c590e29')
+        .delete('/notes/1')
         .expect(HttpStatus.NO_CONTENT);
 
       expect(service.remove).toBeCalled();
