@@ -9,10 +9,10 @@ import {
   HttpStatus,
   Put,
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { IsObjectIdPipe } from '../../pipes';
+import { UserService } from '../providers/user.service';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
+import { IsObjectIdPipe } from '../../../pipes';
 
 @Controller('users')
 export class UserController {

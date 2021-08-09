@@ -20,7 +20,6 @@ describe('IsObjectIdPipe', () => {
         metatype: String,
         data: 'id',
       });
-
       expect(transformedId).toBe(id);
     });
 

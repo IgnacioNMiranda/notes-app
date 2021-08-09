@@ -11,8 +11,4 @@ export class CreateNoteDto {
 
   @IsBoolean()
   important: boolean;
-
-  @IsString()
-  @IsNotEmpty()
-  userId: string;
 }

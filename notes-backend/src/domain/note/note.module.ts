@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { NoteService } from './note.service';
-import { NoteController } from './note.controller';
+import { NoteService } from './providers/note.service';
+import { NoteController } from './controllers/note.controller';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { Note } from './entities/note.entity';
 import { User } from '../user/entities/user.entity';

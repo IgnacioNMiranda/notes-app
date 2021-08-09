@@ -8,11 +8,13 @@ import {
   HttpCode,
   Put,
   HttpStatus,
+  Req,
 } from '@nestjs/common';
-import { NoteService } from './note.service';
-import { CreateNoteDto } from './dto/create-note.dto';
-import { UpdateNoteDto } from './dto/update-note.dto';
-import { IsObjectIdPipe } from '../../pipes';
+import { NoteService } from '../providers/note.service';
+import { CreateNoteDto } from '../dto/create-note.dto';
+import { UpdateNoteDto } from '../dto/update-note.dto';
+import { IsObjectIdPipe } from '../../../pipes';
+import { Request } from 'express';
 
 @Controller('notes')
 export class NoteController {
@@ -20,8 +22,8 @@ export class NoteController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() createNoteDto: CreateNoteDto) {
-    return this.noteService.create(createNoteDto);
+  create(@Req() req: Request, @Body() createNoteDto: CreateNoteDto) {
+    return this.noteService.create(req.user?._id, createNoteDto);
   }
 
   @Get()

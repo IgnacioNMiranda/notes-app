@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getModelToken } from 'nestjs-typegoose';
-import { UserModelMock } from './mocks/user.model.mock';
-import { CryptoUtil } from '../../utils/crypto/crypto.util';
+import { UserModelMock } from '../mocks/user.model.mock';
+import { CryptoUtil } from '../../../utils/crypto/crypto.util';
 import { UserService } from './user.service';
-import { CryptoUtilMock } from '../../utils/crypto/mocks';
+import { CryptoUtilMock } from '../../../utils/crypto/mocks';
 import {
   fullCreateUserDTO,
   fullUpdateUserDTO,
   fullUserEntity,
   usersList,
-} from './fixtures';
+} from '../fixtures';
 import { HttpStatus } from '@nestjs/common';
 
 describe('UserService', () => {

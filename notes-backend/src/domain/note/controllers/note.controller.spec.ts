@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { NoteController } from './note.controller';
-import { NoteService } from './note.service';
-import { mockClass, MockType } from '../../../test/mocks';
+import { NoteService } from '../providers/note.service';
+import { mockClass, MockType } from '../../../../test/mocks';
 import {
   fullCreateNoteDTO,
   fullNoteEntity,
   fullUpdateNoteDTO,
   notesList,
-} from './fixtures';
+} from '../fixtures';
 import * as request from 'supertest';
 import { NestApplication } from '@nestjs/core/nest-application';
 import { HttpStatus } from '@nestjs/common';
-import { IsObjectIdPipe } from '../../pipes';
+import { IsObjectIdPipe } from '../../../pipes';
 
 describe('NoteController', () => {
   let app: NestApplication;
@@ -48,14 +48,14 @@ describe('NoteController', () => {
 
   describe('create', () => {
     it('should return status CREATED', async () => {
-      service.create.mockImplementation((note) => {
+      service.create.mockImplementation((_id, note) => {
         expect(note.title).toBeDefined();
         expect(note.content).toBeDefined();
         expect(note.date).toBeUndefined();
         expect(note.important).toBeDefined();
         return note;
       });
-
+      // Could not modify request object to have user property.
       await request(app.getHttpServer())
         .post('/notes/')
         .send(fullCreateNoteDTO)

@@ -7,10 +7,10 @@ import {
 import { Injectable } from '@nestjs/common';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { InjectModel } from 'nestjs-typegoose';
-import { User } from '../user/entities/user.entity';
-import { CreateNoteDto } from './dto/create-note.dto';
-import { UpdateNoteDto } from './dto/update-note.dto';
-import { Note } from './entities/note.entity';
+import { User } from '../../user/entities/user.entity';
+import { CreateNoteDto } from '../dto/create-note.dto';
+import { UpdateNoteDto } from '../dto/update-note.dto';
+import { Note } from '../entities/note.entity';
 
 @Injectable()
 export class NoteService {
@@ -21,9 +21,7 @@ export class NoteService {
     private readonly userRepository: ReturnModelType<typeof User>,
   ) {}
 
-  async create(createNoteDto: CreateNoteDto) {
-    const { userId } = createNoteDto;
-
+  async create(userId: string, createNoteDto: CreateNoteDto): Promise<Note> {
     const user = await this.userRepository.findById(userId);
     if (user === null) {
       throw new BadRequestException(`Does not exist a user with ${userId} id`);
@@ -32,8 +30,8 @@ export class NoteService {
     try {
       const note = new this.notesRepository(createNoteDto);
       note.user = user;
-      const savedNote = await note.save();
-      return savedNote;
+      await note.save();
+      return note;
     } catch (error) {
       if (error?.code === 11000) {
         throw new ConflictException(
@@ -59,7 +57,7 @@ export class NoteService {
     return note;
   }
 
-  async update(id: string, updateNoteDto: UpdateNoteDto): Promise<any> {
+  async update(id: string, updateNoteDto: UpdateNoteDto): Promise<Note> {
     const note = await this.notesRepository
       .findOne({ _id: id })
       .populate('user')
@@ -72,8 +70,8 @@ export class NoteService {
     note.content = updateNoteDto.content || note.content;
     note.important = updateNoteDto.important || note.important;
 
-    const updatedNote = await note.save();
-    return updatedNote;
+    await note.save();
+    return note;
   }
 
   async remove(id: string) {

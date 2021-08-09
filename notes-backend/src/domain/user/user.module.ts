@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { UserService } from './user.service';
-import { UserController } from './user.controller';
+import { UserService } from './providers/user.service';
+import { UserController } from './controllers/user.controller';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { User } from './entities/user.entity';
 import { CryptoUtil } from '../../utils/crypto/crypto.util';

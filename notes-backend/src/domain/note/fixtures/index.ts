@@ -5,7 +5,6 @@ export const fullCreateNoteDTO: CreateNoteDto = {
   title: 'title',
   content: 'content',
   important: true,
-  userId: '610b061ef1f0ed2c0c590e29',
 };
 
 export const fullUpdateNoteDTO: UpdateNoteDto = {

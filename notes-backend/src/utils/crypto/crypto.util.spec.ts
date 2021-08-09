@@ -18,4 +18,13 @@ describe('CryptoUtil', () => {
       expect(password).not.toBe(cryptedPassword);
     });
   });
+
+  describe('compare', () => {
+    it('should compare correctly with received value', async () => {
+      const password = 'pass123';
+      const cryptedPassword = await util.encrypt(password);
+      const isSamePassword = await util.compare(password, cryptedPassword);
+      expect(isSamePassword).toBe(true);
+    });
+  });
 });

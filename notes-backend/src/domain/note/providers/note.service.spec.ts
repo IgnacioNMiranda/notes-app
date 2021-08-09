@@ -6,11 +6,11 @@ import {
   notesList,
   fullNoteEntity,
   fullUpdateNoteDTO,
-} from './fixtures';
-import { NoteModelMock } from './mocks/note.model.mock';
-import { UserModelMock } from '../user/mocks/user.model.mock';
+} from '../fixtures';
+import { NoteModelMock } from '../mocks/note.model.mock';
+import { UserModelMock } from '../../user/mocks/user.model.mock';
 import { BadRequestException, HttpStatus } from '@nestjs/common';
-import { fullUserEntity } from '../user/fixtures';
+import { fullUserEntity } from '../../user/fixtures';
 
 describe('NoteService', () => {
   let service: NoteService;
@@ -49,8 +49,7 @@ describe('NoteService', () => {
           return fullUserEntity;
         });
 
-      const newNote = await service.create(fullCreateNoteDTO);
-
+      const newNote = await service.create('dummyUserId', fullCreateNoteDTO);
       expect(newNote).toBeDefined();
       expect(newNote.title).toBe(fullCreateNoteDTO.title);
       expect(newNote.content).toBe(fullCreateNoteDTO.content);
@@ -68,7 +67,7 @@ describe('NoteService', () => {
 
       let error: any;
       try {
-        await service.create(fullCreateNoteDTO);
+        await service.create('dummyUserId', fullCreateNoteDTO);
       } catch (badRequestError) {
         error = badRequestError;
       }
@@ -88,7 +87,7 @@ describe('NoteService', () => {
 
       let error: any;
       try {
-        await service.create(fullCreateNoteDTO);
+        await service.create('dummyUserId', fullCreateNoteDTO);
       } catch (badRequestError) {
         error = badRequestError;
       }
@@ -100,7 +99,7 @@ describe('NoteService', () => {
   describe('findAll', () => {
     it('should return every note', async () => {
       jest.spyOn<any, any>(NoteModelMock, 'find').mockImplementation(() => {
-        return { exec: () => notesList };
+        return { populate: () => ({ exec: () => notesList }) };
       });
       const notes = await service.findAll();
       expect(notes).toBeDefined();
@@ -111,18 +110,19 @@ describe('NoteService', () => {
   describe('findOne', () => {
     it('should return specific note', async () => {
       jest
-        .spyOn<any, any>(NoteModelMock, 'findById')
+        .spyOn<any, any>(NoteModelMock, 'findOne')
         .mockImplementation((id: string) => {
           expect(id).toBeDefined();
-          return fullNoteEntity;
+          return { populate: () => ({ exec: () => fullNoteEntity }) };
         });
+
       const note = await service.findOne('dummyId');
       expect(note).toBeDefined();
     });
 
     it('should throw NOT_FOUND exception if found note == null', async () => {
-      jest.spyOn<any, any>(NoteModelMock, 'findById').mockImplementation(() => {
-        return null;
+      jest.spyOn<any, any>(NoteModelMock, 'findOne').mockImplementation(() => {
+        return { populate: () => ({ exec: () => null }) };
       });
 
       let error: { response: any; status: number };
@@ -139,17 +139,17 @@ describe('NoteService', () => {
   describe('update', () => {
     xit('should update note and return updated note', async () => {
       jest
-        .spyOn<any, any>(NoteModelMock, 'findById')
+        .spyOn<any, any>(NoteModelMock, 'findOne')
         .mockImplementation((id: string) => {
           expect(id).toBeDefined();
-          return fullNoteEntity;
+          return { populate: () => ({ exec: () => fullNoteEntity }) };
         });
       // TODO: mock save method.
     });
 
     it('should throw NOT_FOUND exception if found note == null', async () => {
-      jest.spyOn<any, any>(NoteModelMock, 'findById').mockImplementation(() => {
-        return null;
+      jest.spyOn<any, any>(NoteModelMock, 'findOne').mockImplementation(() => {
+        return { populate: () => ({ exec: () => null }) };
       });
 
       let error: { response: any; status: number };

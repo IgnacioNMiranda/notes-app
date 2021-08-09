@@ -1,17 +1,17 @@
 import { NestApplication } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
-import { mockClass, MockType } from '../../../test/mocks';
+import { mockClass, MockType } from '../../../../test/mocks';
 import {
   fullCreateUserDTO,
   fullUpdateUserDTO,
   fullUserEntity,
   usersList,
-} from './fixtures';
+} from '../fixtures';
 import { UserController } from './user.controller';
-import { UserService } from './user.service';
+import { UserService } from '../providers/user.service';
 import * as request from 'supertest';
 import { HttpStatus } from '@nestjs/common';
-import { IsObjectIdPipe } from '../../pipes';
+import { IsObjectIdPipe } from '../../../pipes';
 
 describe('UserController', () => {
   let app: NestApplication;
