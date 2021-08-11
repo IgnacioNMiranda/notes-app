@@ -4,4 +4,9 @@ export const configuration = () => ({
   database: {
     uri: process.env.MONGO_URI_STRING,
   },
+  jwt: {
+    publicKey: process.env.JWT_PUBLIC_KEY.replace(/\\n/g, '\n'),
+    privateKey: process.env.JWT_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    expiresIn: process.env.JWT_EXPIRES_IN || 60 * 60 * 24,
+  },
 });
