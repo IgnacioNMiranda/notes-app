@@ -1,27 +1,32 @@
-import React from "react";
-import IResponseGetNote from "../../../interfaces/IResponseGetNote";
+import React, { useState } from "react";
+import { IResponseNote } from "../../../../../interfaces/IResponseNote";
+import { Button } from "../../../atoms/Button";
 import { Note } from '../Note/Note';
 import './NotesTable.css';
 
 interface NotesTableProps {
-  notes: IResponseGetNote[],
-  showImportants: boolean,
-  handleClick: () => void,
-  handleDeleteAction: (id: any) => () => void,
+  notes: IResponseNote[],
+  deleteNote: (id: any) => () => void,
 }
 
-const NotesTable = ({ notes, showImportants, handleClick, handleDeleteAction}: NotesTableProps) => {
+const NotesTable = ({ notes, deleteNote }: NotesTableProps) => {
+  const [showImportants, setShowImportants] = useState(false);
+
+  const changeImportantFilter = () => {
+    setShowImportants(!showImportants);
+  };
+
   const mappedNotes = notes
     .filter((note: any) => showImportants ? note.important : true)
     .map(
-      (note: any) => <Note key={note._id} id={note._id} title={note.title} content={note.content} date={note.date} important={note.important} handleDeleteAction={handleDeleteAction}/>
+      (note: any) => <Note key={note._id} id={note._id} title={note.title} content={note.content} date={note.date} important={note.important} handleDelete={deleteNote}/>
     );
 
   return (
     <>
     {
       <div className='tableWraper'>
-        <button className='showImportantsButton' onClick={handleClick}>{showImportants ? 'Show all': 'Show importants'}</button>
+        <Button extraClasses='showImportantsButton' text={showImportants ? 'Show all': 'Show importants'} onClick={changeImportantFilter}/>
         {
           mappedNotes.length === 0
           ? <p className='noNotes'>No hay notas que mostrar.</p>

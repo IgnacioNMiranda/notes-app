@@ -13,7 +13,7 @@
   border-radius: 10px;
   border: 1px solid #ccc;
   padding: 10px;
-
+  overflow-x: auto;
 }
 
 .notesTable {
@@ -24,6 +24,7 @@
   max-height: 400px;
   position: relative;
   text-align: center;
+
 }
 
 .notesHeader th {
@@ -34,15 +35,9 @@
 
 .showImportantsButton {
   width: 20%;
-  display: block;
   font-size: 16px;
   margin: 0px 0px 15px 8px;
-  border-radius: 5px;
   background-color: rgb(88, 213, 103);
-  border: 0px;
-  padding: 5px 10px;
-  color: #ffffff;
-  transition: 200ms all;
 }
 .showImportantsButton:hover {
   background-color: rgb(36, 214, 57);

@@ -14,6 +14,7 @@ import { AuthModule } from './domain/auth/auth.module';
 import { AuthenticationMiddleware } from './middlewares/authentication.middleware';
 import { UserController } from './domain/user/controllers/user.controller';
 import { NoteController } from './domain/note/controllers/note.controller';
+import { AuthController } from './domain/auth/controller/auth.controller';
 
 @Module({
   imports: [
@@ -42,7 +43,8 @@ export class AppModule implements NestModule {
       .exclude(
         { path: 'notes', method: RequestMethod.GET },
         { path: 'notes/:id', method: RequestMethod.GET },
+        { path: 'auth/login', method: RequestMethod.POST },
       )
-      .forRoutes(UserController, NoteController);
+      .forRoutes(UserController, NoteController, AuthController);
   }
 }

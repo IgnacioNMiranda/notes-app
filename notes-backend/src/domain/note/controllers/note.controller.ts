@@ -38,6 +38,12 @@ export class NoteController {
     return this.noteService.findOne(id);
   }
 
+  @Get('user/notes')
+  @HttpCode(HttpStatus.OK)
+  findByUserId(@Req() req: Request) {
+    return this.noteService.findByUserId(req.user?._id);
+  }
+
   @Put(':id')
   @HttpCode(HttpStatus.OK)
   update(

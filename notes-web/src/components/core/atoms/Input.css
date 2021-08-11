@@ -1,0 +1,37 @@
+.inputWrap {
+  width: 70%;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  position: relative;
+  border-radius: 4px;
+  padding: 5px;
+  transition: all 200ms;
+  display: flex;
+  align-items: center;
+}
+.genericInput input {
+  border: 0px;
+  width: 100%;
+  outline: 0;
+  font-size: 0.9em;
+  padding: 0px;
+  transition: all 200ms;
+}
+.genericInput:hover {
+  border: 1px solid rgb(0, 134, 237);
+}
+
+.radioInput {
+  width: 20%;
+  border: 0px;
+  display: inline;
+  margin: 0px 5px;
+}
+.radioInput label {
+  color: black;
+  margin-left: 5px;
+}
+
+label {
+  color: rgb(153, 153, 153);
+}

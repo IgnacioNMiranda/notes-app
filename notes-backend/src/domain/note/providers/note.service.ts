@@ -57,6 +57,10 @@ export class NoteService {
     return note;
   }
 
+  findByUserId(userId: string): Promise<Note[]> {
+    return this.notesRepository.find({ user: userId }).exec();
+  }
+
   async update(id: string, updateNoteDto: UpdateNoteDto): Promise<Note> {
     const note = await this.notesRepository
       .findOne({ _id: id })
