@@ -1,4 +1,5 @@
-import { prop } from '@typegoose/typegoose';
+import { prop, Ref } from '@typegoose/typegoose';
+import { User } from '../../user/entities/user.entity';
 
 export class Note {
   @prop({ type: String, unique: true })
@@ -12,4 +13,7 @@ export class Note {
 
   @prop({ type: Boolean })
   public important: boolean;
+
+  @prop({ required: true, ref: () => User })
+  public user: Ref<User>;
 }
