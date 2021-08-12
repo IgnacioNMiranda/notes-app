@@ -1,4 +1,4 @@
-import { store, ReactNotificationOptions } from "react-notifications-component";
+import { store, ReactNotificationOptions } from 'react-notifications-component';
 
 export class NotificationUtil {
   static createNotification({
@@ -8,24 +8,24 @@ export class NotificationUtil {
   }: {
     title: string;
     message: string;
-    type: "success" | "danger" | "info" | "default" | "warning" | undefined;
+    type: 'success' | 'danger' | 'info' | 'default' | 'warning' | undefined;
   }) {
     this.renderNotification({
       title,
       message,
       type,
-      container: "top-right",
+      container: 'top-right',
     });
   }
 
   static renderNotification({
     title,
     message,
-    type = "success",
-    insert = "top",
-    container = "top-right",
-    animationIn = ["animate__animated", "animate__fadeInLeftBig"],
-    animationOut = ["animate__animated", "animate__fadeOut"],
+    type = 'success',
+    insert = 'top',
+    container = 'top-right',
+    animationIn = ['animate__animated', 'animate__fadeInLeftBig'],
+    animationOut = ['animate__animated', 'animate__fadeOut'],
     dismiss = {
       duration: 2500,
       onScreen: true,

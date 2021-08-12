@@ -16,7 +16,7 @@ const Notes = ({ authToken }: any) => {
     const getNotes = async () => {
       const fetchNotes = await NoteService.findByUserId(authToken);
       setNotes(fetchNotes);
-    }
+    };
     getNotes();
   }, []);
 
@@ -35,7 +35,7 @@ const Notes = ({ authToken }: any) => {
         title: 'Error',
         message: error?.response?.data?.message || 'Unexpected error',
         type: 'danger',
-      })
+      });
       return false;
     }
   };
@@ -64,10 +64,10 @@ const Notes = ({ authToken }: any) => {
 
   return (
     <div className="notes">
-      <NotesForm addNewNote={addNewNote}/>
-      <NotesTable notes={notes} deleteNote={deleteNote}/>
+      <NotesForm addNewNote={addNewNote} />
+      <NotesTable notes={notes} deleteNote={deleteNote} />
     </div>
-  )
+  );
 };
 
 export { Notes };

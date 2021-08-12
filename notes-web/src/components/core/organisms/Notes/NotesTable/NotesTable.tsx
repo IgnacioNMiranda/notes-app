@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { IResponseNote } from "../../../../../interfaces/IResponseNote";
-import { Button } from "../../../atoms/Button";
+import React, { useState } from 'react';
+import { IResponseNote } from '../../../../../interfaces/IResponseNote';
+import { Button } from '../../../atoms/Button';
 import { Note } from '../Note/Note';
 import './NotesTable.css';
 
 interface NotesTableProps {
-  notes: IResponseNote[],
-  deleteNote: (id: any) => () => void,
+  notes: IResponseNote[];
+  deleteNote: (id: any) => () => void;
 }
 
 const NotesTable = ({ notes, deleteNote }: NotesTableProps) => {
@@ -17,20 +17,32 @@ const NotesTable = ({ notes, deleteNote }: NotesTableProps) => {
   };
 
   const mappedNotes = notes
-    .filter((note: any) => showImportants ? note.important : true)
-    .map(
-      (note: any) => <Note key={note._id} id={note._id} title={note.title} content={note.content} date={note.date} important={note.important} handleDelete={deleteNote}/>
-    );
+    .filter((note: any) => (showImportants ? note.important : true))
+    .map((note: any) => (
+      <Note
+        key={note._id}
+        id={note._id}
+        title={note.title}
+        content={note.content}
+        date={note.date}
+        important={note.important}
+        handleDelete={deleteNote}
+      />
+    ));
 
   return (
     <>
-    {
-      <div className='tableWraper'>
-        <Button extraClasses='showImportantsButton' text={showImportants ? 'Show all': 'Show importants'} onClick={changeImportantFilter}/>
-        {
-          mappedNotes.length === 0
-          ? <p className='noNotes'>No hay notas que mostrar.</p>
-          : <table className="notesTable">
+      {
+        <div className="tableWraper">
+          <Button
+            extraClasses="showImportantsButton"
+            text={showImportants ? 'Show all' : 'Show importants'}
+            onClick={changeImportantFilter}
+          />
+          {mappedNotes.length === 0 ? (
+            <p className="noNotes">No hay notas que mostrar.</p>
+          ) : (
+            <table className="notesTable">
               <thead className="notesHeader">
                 <tr>
                   <th colSpan={1}>Title</th>
@@ -41,12 +53,12 @@ const NotesTable = ({ notes, deleteNote }: NotesTableProps) => {
                 </tr>
               </thead>
               <tbody className="notesBody">{mappedNotes}</tbody>
-          </table>
-        }
-      </div>
-    }
+            </table>
+          )}
+        </div>
+      }
     </>
   );
 };
 
-export {  NotesTable };
+export { NotesTable };
