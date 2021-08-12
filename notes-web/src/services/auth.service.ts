@@ -1,8 +1,8 @@
-import { configuration } from "../configuration/configuration";
-import { CredentialsDTO } from "../interfaces/credentials.dto";
-import axios from "axios";
-import { IResponseLogin } from "../interfaces/IResponseLogin";
-import { LocalStorageUtil } from "../utils/LocalStorageUtil";
+import { configuration } from '../configuration/configuration';
+import { CredentialsDTO } from '../interfaces/credentials.dto';
+import axios from 'axios';
+import { IResponseLogin } from '../interfaces/IResponseLogin';
+import { LocalStorageUtil } from '../utils/LocalStorageUtil';
 
 export class AuthService {
   static apiUrl = `${configuration.api.uri}/auth`;
@@ -12,7 +12,7 @@ export class AuthService {
   }
 
   static logout() {
-    LocalStorageUtil.set("authToken", "");
+    LocalStorageUtil.set('authToken', '');
   }
 
   static validateToken(token: string) {
