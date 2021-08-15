@@ -14,7 +14,7 @@ async function bootstrap() {
   const env = configService.get('env');
 
   const origins = [];
-  if (env === 'development') {
+  if (env !== 'production') {
     origins.push('http://localhost:3001');
   }
 

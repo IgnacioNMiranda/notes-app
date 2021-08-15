@@ -2,7 +2,10 @@ export const configuration = () => ({
   env: process.env.NODE_ENV || 'development',
   port: process.env.PORT || 3000,
   database: {
-    uri: process.env.MONGO_URI_STRING,
+    uri:
+      process.env.NODE_ENV === 'test'
+        ? process.env.MONGO_TEST_URI_STRING
+        : process.env.MONGO_URI_STRING,
   },
   jwt: {
     publicKey: process.env.JWT_PUBLIC_KEY.replace(/\\n/g, '\n'),

@@ -15,6 +15,7 @@ import { AuthenticationMiddleware } from './middlewares/authentication.middlewar
 import { UserController } from './domain/user/controllers/user.controller';
 import { NoteController } from './domain/note/controllers/note.controller';
 import { AuthController } from './domain/auth/controller/auth.controller';
+import { TestModule } from './utils/test/test.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { AuthController } from './domain/auth/controller/auth.controller';
     }),
     UserModule,
     AuthModule,
+    TestModule.register(),
   ],
   controllers: [AppController],
 })

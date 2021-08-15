@@ -24,7 +24,6 @@ export class AuthController {
   }
 
   @Get('validateToken')
-  @Public()
   @HttpCode(HttpStatus.OK)
   async validateToken(@Req() req: Request) {
     return req.user;

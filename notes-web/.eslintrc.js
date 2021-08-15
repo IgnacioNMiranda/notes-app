@@ -20,7 +20,10 @@ module.exports = {
     //"prettier/@typescript-eslint", // Its no more necessary.
     "plugin:prettier/recommended" // Enables eslint-plugin-prettier and eslint-config-prettier.
   ],
-  ignorePatterns: ['.eslintrc.js', '/coverage', '/dist', '/resources'],
+  env: {
+    "cypress/globals": true
+  },
+  ignorePatterns: ['.eslintrc.js', '/coverage', '/dist', '/resources', '/cypress'],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',

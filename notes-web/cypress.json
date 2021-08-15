@@ -1,0 +1,10 @@
+{
+  "baseUrl": "http://localhost:3001",
+  "watchForFileChanges": true,
+  "env": {
+    "api_url": "http://localhost:3000",
+    "user_email": "user@gmail.com",
+    "user_password": "pass123"
+  },
+  "supportFile": "cypress/support/index.ts"
+}
