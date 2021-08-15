@@ -31,6 +31,13 @@ export const LoginForm = ({ updateTokenAndLogin, toggleLoginModal }: any) => {
 
       updateTokenAndLogin(token);
     } catch (error) {
+      if (typeof error.response?.data.message === 'undefined') {
+        NotificationUtil.createNotification({
+          title: 'Error',
+          message: 'Unexpected error. Please contact us sending an email to contact@gmail.com',
+          type: 'danger',
+        });
+      }
       const { message: errors }: { message: string | string[] } = error.response.data;
       if (typeof errors === 'object' && Array.isArray(errors)) {
         errors.forEach((error) => {

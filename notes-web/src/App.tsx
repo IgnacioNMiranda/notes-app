@@ -52,13 +52,13 @@ function App() {
       text: 'Login',
       onClick: toggleLoginModal,
       href: '',
-      show: authToken === '',
+      show: !authToken,
     },
     {
       text: 'Logout',
       onClick: logout,
       href: '',
-      show: authToken !== '',
+      show: !!authToken,
     },
   ];
 
@@ -69,7 +69,7 @@ function App() {
       </header>
       <ReactNotification />
       <main className="main">
-        {authToken !== '' ? (
+        {authToken ? (
           <Notes authToken={authToken} />
         ) : (
           <>
