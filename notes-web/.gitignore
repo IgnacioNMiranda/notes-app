@@ -7,5 +7,6 @@ dist-ssr
 # Environment variables
 .env
 
-# Test coverage
+# Testing
 /coverage
+/cypress/videos
