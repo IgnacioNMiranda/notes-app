@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NotesTable } from './NotesTable/NotesTable';
 import { NotesForm } from './NotesForm/NotesForm';
 import { IResponseNote } from '../../../../interfaces/IResponseNote';
@@ -6,15 +6,17 @@ import { NoteService } from '../../../../services/note.service';
 import { NotificationUtil } from '../../../../utils/NotificationUtil';
 
 import './Notes.css';
+import { TokenContext } from '../../../../context';
 
 const INITIAL_NOTES_STATE: IResponseNote[] = [];
 
-const Notes = ({ authToken }: any) => {
+const Notes = () => {
   const [notes, setNotes] = useState(INITIAL_NOTES_STATE);
+  const { token } = useContext(TokenContext);
 
   useEffect(() => {
     const getNotes = async () => {
-      const fetchNotes = await NoteService.findByUserId(authToken);
+      const fetchNotes = await NoteService.findByUserId(token);
       setNotes(fetchNotes);
     };
     getNotes();
@@ -22,7 +24,7 @@ const Notes = ({ authToken }: any) => {
 
   const addNewNote = async (note: IResponseNote) => {
     try {
-      const newNote = await NoteService.create(note, authToken);
+      const newNote = await NoteService.create(note, token);
       setNotes((prevNotes) => [...prevNotes, newNote]);
       NotificationUtil.createNotification({
         title: 'Success',
@@ -43,7 +45,7 @@ const Notes = ({ authToken }: any) => {
   const deleteNote = (id: any) => {
     const handleDeleteNoteClick = async () => {
       try {
-        await NoteService.deleteById(id, authToken);
+        await NoteService.deleteById(id, token);
         const updatedNotes = notes.filter((note) => note._id !== id);
         setNotes(updatedNotes);
         NotificationUtil.createNotification({
