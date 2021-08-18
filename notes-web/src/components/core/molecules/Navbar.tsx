@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from '../atoms/Button';
 import { Link } from '../atoms/Link';
-import './RightNavbar.css';
+import './Navbar.css';
 
-interface RightNavbarProps {
+interface NavbarProps {
   elements: {
     text: string;
     onClick?: () => void;
@@ -12,7 +12,7 @@ interface RightNavbarProps {
   }[];
 }
 
-export const RightNavbar = ({ elements }: RightNavbarProps) => {
+export const Navbar = ({ elements }: NavbarProps) => {
   const navbarElements = elements.map(({ text, onClick, href = '', show }: any) => {
     if (show) {
       if (href === '') {

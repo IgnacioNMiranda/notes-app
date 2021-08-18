@@ -58,10 +58,10 @@ export const LoginForm = ({ updateTokenAndLogin, toggleLoginModal }: any) => {
   };
 
   return (
-    <div className="loginModal" style={{ width: window.outerWidth, height: window.outerHeight }}>
+    <div className="loginModal" style={{ width: window.innerWidth, height: window.innerHeight }}>
       <div
         className="loginBackground"
-        style={{ width: window.outerWidth, height: window.outerHeight }}
+        style={{ width: window.innerWidth, height: window.innerHeight }}
         onClick={toggleLoginModal}
       ></div>
       <div className="loginFormWrap">
