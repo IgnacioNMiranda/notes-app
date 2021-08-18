@@ -19,7 +19,7 @@ const Note = ({ id, title, content, date, important, handleDelete }: NoteProps) 
       <td>{important ? 'true' : 'false'}</td>
       <td>
         <button className="deleteNote" onClick={handleDelete(id)}>
-          X
+          &times;
         </button>
       </td>
     </tr>

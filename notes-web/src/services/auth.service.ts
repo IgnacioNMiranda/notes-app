@@ -12,7 +12,7 @@ export class AuthService {
   }
 
   static logout() {
-    LocalStorageUtil.set('authToken', '');
+    LocalStorageUtil.set('token', '');
   }
 
   static validateToken(token: string) {
